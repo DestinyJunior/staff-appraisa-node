@@ -20,10 +20,21 @@ app.use(function(req, res, next) {
   next();
 });
 
+//Log requests to console
+app.use(morgan('dev'));
+
+//Initialize passport for use
+app.use(passport.initialize());
+
 mongoose.connect(config.database);
 
-var helloRouter = require('./router/hello');
+//Bring in passport strategy we just defined
+require('./config/passport')(passport);
 
-app.use('/api/hello/', helloRouter);
+//var helloRouter = require('./router/hello');
+//app.use('/api/hello/', helloRouter);
+var userRouter = require('./router/user');
+
+app.use('/api/staff/', userRouter)
 
 app.listen(3000);

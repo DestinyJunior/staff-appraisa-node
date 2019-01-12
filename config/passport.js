@@ -1,4 +1,4 @@
-/*var JwtStrategy = require('passport-jwt').Strategy;
+var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
 var User = require('../models/user');
 var config = require('../config/main');
@@ -19,4 +19,4 @@ module.exports = function(passport) {
             }
         });
     }));
-};*/
+};
