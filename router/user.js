@@ -67,12 +67,99 @@ userRoute.get('/dashboard', passport.authenticate('jwt', { session: false}), (re
     res.send('It worked! User id is: ' + req.user._id + '.');
 });
 
-userRoute.get('/get', (req, res) => {
+userRoute.get('/get', passport.authenticate('jwt', { session: false}), (req, res) => {
     User.find()
         .then(user => {
             res.json({
                 success: true,
                 message: 'state found',
+                user: user
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'state not found',
+                user: ''
+            });
+        });
+});
+
+userRoute.get('/email/:email', passport.authenticate('jwt', { session: false}), (req, res) => {
+    const email = req.params.email;
+
+    User.find({email: email})
+        .then(users => {
+            res.json({
+                success: true,
+                message: "users found",
+                user: users
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: err,
+                user: ''
+            });
+        });
+});
+
+userRoute.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
+    const query = req.query;
+    const stateId = query.id;
+    delete query.id;
+
+    User.findByIdAndUpdate(stateId, query, {new:true})
+        .then(state => {
+            res.json({
+                success: true,
+                message: 'state update',
+                state: state
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'state not found',
+                state: ''
+            });
+        });
+});
+
+userRoute.post('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
+
+    const userId = req.body.id;
+
+    let query = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
+    }
+
+    User.findByIdAndUpdate(userId, query, {new:true})
+        .then(user => {
+            res.json({
+                success: true,
+                message: 'state update',
+                user: user
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'state not found',
+                user: ''
+            });
+        });
+});
+
+userRoute.get('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
+    
+    User.findByIdAndRemove(req.params.id)
+        .then(user => {
+            res.json({
+                success: true,
+                message: 'state deleted',
                 user: user
             });
         })

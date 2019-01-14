@@ -35,6 +35,6 @@ require('./config/passport')(passport);
 //app.use('/api/hello/', helloRouter);
 var userRouter = require('./router/user');
 
-app.use('/api/staff/', userRouter)
+app.use('/api/user/', userRouter)
 
 app.listen(3000);
