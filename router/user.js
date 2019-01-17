@@ -25,7 +25,8 @@ userRoute.post('/register', (req, res) => {
             portfolio: req.body.portfolio,
             salary: req.body.salary,
             numberOfLeaveUsed: req.body.numberOfLeaveUsed,
-            daysAbsent: req.body.daysAbsent         
+            daysAbsent: req.body.daysAbsent,
+            role: req.body.role         
         });
         //Attemt to save the new users
         User.create(newUser, (err, user) =>{
@@ -132,8 +133,22 @@ userRoute.post('/update', passport.authenticate('jwt', { session: false}), (req,
     const userId = req.body.id;
 
     let query = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName
+           firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            phoneNumber: req.body.phoneNumber,
+            dateOfBirth: req.body.dateOfBirth,
+            email: req.body.email,
+            password: req.body.password,
+            educationalBackground: req.body.educationalBackground,
+            address : req.body.address,
+            guarantorPhoneNumber: req.body.guarantorPhoneNumber,
+            guarantorName: req.body.guarantorName,
+            appointmentDate: req.body.appointmentDate,
+            portfolio: req.body.portfolio,
+            salary: req.body.salary,
+            numberOfLeaveUsed: req.body.numberOfLeaveUsed,
+            daysAbsent: req.body.daysAbsent,
+            role: req.body.role
     }
 
     User.findByIdAndUpdate(userId, query, {new:true})

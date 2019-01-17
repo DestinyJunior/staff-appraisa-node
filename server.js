@@ -34,7 +34,20 @@ require('./config/passport')(passport);
 //var helloRouter = require('./router/hello');
 //app.use('/api/hello/', helloRouter);
 var userRouter = require('./router/user');
+var solarRouter = require('./router/solar');
+var cashierRouter = require('./router/cashier');
+var stockRouter = require('./router/stock');
+var clinicRouter = require('./router/clinic');
+var deliveryRouter = require('./router/delivery');
+var technicianRouter = require('./router/technician');
 
-app.use('/api/user/', userRouter)
+// routes
+app.use('/api/user/', userRouter);
+app.use('/api/solar/', solarRouter);
+app.use('/api/cashier/', cashierRouter);
+app.use('/api/stock/', stockRouter);
+app.use('/api/clinic/', clinicRouter);
+app.use('/api/delivery', deliveryRouter);
+app.use('/api/technician', technicianRouter);
 
-app.listen(3000);
+app.listen(3000 , () => console.log('Listening on Port 3000....'));

@@ -1,23 +1,27 @@
 var mongoose = require('mongoose');
 
-var SaleSchema = new mongoose.Schema({
-    staffId: {
+var ClinicSchema = new mongoose.Schema({
+    userId: {
         type: String,
         required: true
     },
     date: {
+        type: Date,
+        required: true
+    },
+    totalSales: {
         type: Number,
         required: true
     },
-    cashRefund: {
-        type: Number,
-        required: true
-    },
-    singleInvoice: {
+    refund: {
         type: String,
         required: true
     },
-    shortageInSuspenseAcct: {
+    shortage: {
+        type: Number,
+        required: true
+    },    
+    debtFromCustomers: {
         type: Number,
         required: true
     },
@@ -25,31 +29,26 @@ var SaleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    debtFromCustomers: {
+    abandonedJob: {
         type: Number,
         required: true
     },
-    totalSales: {
+    successfulTransactions: {
         type: Number,
         required: true
     },
-    closingBalance: {
+    workInProgress: {
         type: Number,
         required: true
     },
-    numberOfTransactions: {
+    numberOfTransaction: {
         type: Number,
         required: true
     },
     numberOfStaff: {
         type: Number,
         required: true
-    },
-    expenses: {
-        type: Number,
-        required: true
-    }
-    
+    }        
 });
 
-module.exports = mongoose.model('sales', SaleSchema);
+module.exports = mongoose.model('clinic', ClinicSchema);

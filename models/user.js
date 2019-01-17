@@ -69,6 +69,10 @@ var UserSchema = new mongoose.Schema({
         daysAbsent: {
             type: Number,
             required:  false
+        },
+        role: {
+            type: String,
+            default: ['Admin', 'staff']
         }       
 
 });
