@@ -30,6 +30,7 @@ userRoute.post('/register', (req, res) => {
         //Attemt to save the new users
         User.create(newUser, (err, user) =>{
             if(err){
+                console.log(newUser)
                 return res.json({success: false, message: 'This user already exist'})
             } 
             res.json({success: true, message: 'Sucessfully Created new staff.', user: user});

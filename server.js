@@ -34,7 +34,23 @@ require('./config/passport')(passport);
 //var helloRouter = require('./router/hello');
 //app.use('/api/hello/', helloRouter);
 var userRouter = require('./router/user');
+var salesRouter = require('./router/sales');
+var websocialRouter = require('./router/websocial');
+var instructorRouter = require('./router/instructors');
+var mailmonitoringRouter = require('./router/mailmonitoring');
+var deliverymanRouter = require('./router/deliveryman');
+var auditRouter = require('./router/audit');
+var fitiadminRouter = require('./router/fitiadmin');
 
-app.use('/api/user/', userRouter)
+
+
+app.use('/api/user/', userRouter);
+app.use('/api/sales/', salesRouter);
+app.use('/api/websocial', websocialRouter);
+app.use('/api/instructor', instructorRouter);
+app.use('/api/mailmonitoring', mailmonitoringRouter);
+app.use ('/api/deliveryman', deliverymanRouter);
+app.use('/api/audit', auditRouter);
+app.use('/api/fitiadmin', fitiadminRouter);
 
 app.listen(3000);

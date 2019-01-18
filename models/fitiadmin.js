@@ -1,23 +1,23 @@
 var mongoose = require('mongoose');
 
-var SaleSchema = new mongoose.Schema({
+var FitiAdminSchema = new mongoose.Schema({
     //userId: {
-       // type: String,
+      //  type: String,
         //required: true
     //},
     date: {
         type: Date,
         required: true
     },
-    cashRefund: {
+    numberOfRegistration: {
         type: Number,
-        required: false
-    },
-    singleInvoice: {
-        type: String,
         required: true
     },
-    shortageInSuspenseAcct: {
+    amountFromRegistration: {
+        type: Number,
+        required: true
+    },
+    abandonedCertificate: {
         type: Number,
         required: true
     },
@@ -25,19 +25,15 @@ var SaleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    debtFromCustomers: {
+    dueDebtFromTrainees: {
         type: Number,
         required: true
     },
-    totalSales: {
+    pendingCertificateWithAuditor: {
         type: Number,
-        required: true
+        required: false
     },
-    closingBalance: {
-        type: Number,
-        required: true
-    },
-    numberOfTransactions: {
+    traineeWaitingForCertificates: {
         type: Number,
         required: true
     },
@@ -45,11 +41,15 @@ var SaleSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    absentTrainees: {
+        type: String,
+        required: true
+    },
     expenses: {
         type: Number,
         required: true
-    },
-    
+    }
+
 });
 
-module.exports = mongoose.model('sales', SaleSchema);
+module.exports = mongoose.model('fitiadmin', FitiAdminSchema);
