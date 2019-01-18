@@ -1,15 +1,15 @@
-//var passport = require('passport');
-//var config = require('../config/main');
-//var jwt = require('jsonwebtoken');
+var passport = require('passport');
+var config = require('../config/main');
+var jwt = require('jsonwebtoken');
 var WebSocial = require('../models/websocial');
 var express = require('express');
 
 var websocialRouter = express.Router();
 
-websocialRouter.post('/websocial', (req, res) => {
+websocialRouter.post('/websocial', passport.authenticate('jwt', { session: false}), (req, res) => {
     
         let newwebsocial = new WebSocial({
-            //userId: req.user._id,
+            userId: req.user._id,
             date: req.body.date,
             loginInTime: req.body.loginInTime,
             facebookLikes: req.body.facebookLikes,
@@ -39,7 +39,7 @@ websocialRouter.post('/websocial', (req, res) => {
         });
  
 });
-websocialRouter.get('/get', (req, res) => {
+websocialRouter.get('/get', passport.authenticate('jwt', { session: false}), (req, res) => {
     WebSocial.find()
         .then(websocial => {
             res.json({
@@ -56,7 +56,7 @@ websocialRouter.get('/get', (req, res) => {
             });
         });
 });
-websocialRouter.get('/update',  (req, res) => {
+websocialRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
     const query = req.query;
     const websocialId = query.id;
     delete query.id;
@@ -77,7 +77,7 @@ websocialRouter.get('/update',  (req, res) => {
             });
         });
 });
-websocialRouter.get('/delete/:id',  (req, res) => {
+websocialRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
     WebSocial.findByIdAndRemove(req.params.id)
         .then(websocial => {

@@ -1,15 +1,15 @@
-//var passport = require('passport');
-//var config = require('../config/main');
-//var jwt = require('jsonwebtoken');
+var passport = require('passport');
+var config = require('../config/main');
+var jwt = require('jsonwebtoken');
 var Instructor = require('../models/instructors');
 var express = require('express');
 
 var instructorRouter = express.Router();
 
-instructorRouter.post('/instructors', (req, res) => {
+instructorRouter.post('/instructors', passport.authenticate('jwt', { session: false}), (req, res) => {
     
         let newInstructor = new Instructor({
-            //userId: req.body.userId,
+            userId: req.body.userId,
             date: req.body.date,
             loginInTime: req.body.loginInTime,
             numberOfStdTaught: req.body.numberOfStdTaught,
@@ -38,7 +38,7 @@ instructorRouter.post('/instructors', (req, res) => {
                 });
         });
 });
-instructorRouter.get('/get', (req, res) => {
+instructorRouter.get('/get', passport.authenticate('jwt', { session: false}), (req, res) => {
     Instructor.find()
         .then(instructor => {
             res.json({
@@ -55,7 +55,7 @@ instructorRouter.get('/get', (req, res) => {
             });
         });
 });
-instructorRouter.get('/update',  (req, res) => {
+instructorRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
     const query = req.query;
     const instructorId = query.id;
     delete query.id;
@@ -76,7 +76,7 @@ instructorRouter.get('/update',  (req, res) => {
             });
         });
 });
-instructorRouter.get('/delete/:id',  (req, res) => {
+instructorRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
     Instructor.findByIdAndRemove(req.params.id)
         .then(instructor => {

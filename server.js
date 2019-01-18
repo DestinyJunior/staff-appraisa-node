@@ -40,6 +40,15 @@ var stockRouter = require('./router/stock');
 var clinicRouter = require('./router/clinic');
 var deliveryRouter = require('./router/delivery');
 var technicianRouter = require('./router/technician');
+var salesRouter = require('./router/sales');
+var websocialRouter = require('./router/websocial');
+var instructorRouter = require('./router/instructors');
+var mailmonitoringRouter = require('./router/mailmonitoring');
+var deliverymanRouter = require('./router/deliveryman');
+var auditRouter = require('./router/audit');
+var fitiadminRouter = require('./router/fitiadmin');
+
+
 
 // routes
 app.use('/api/user/', userRouter);
@@ -49,5 +58,14 @@ app.use('/api/stock/', stockRouter);
 app.use('/api/clinic/', clinicRouter);
 app.use('/api/delivery', deliveryRouter);
 app.use('/api/technician', technicianRouter);
+app.use('/api/sales/', salesRouter);
+app.use('/api/websocial', websocialRouter);
+app.use('/api/instructor', instructorRouter);
+app.use('/api/mailmonitoring', mailmonitoringRouter);
+app.use ('/api/deliveryman', deliverymanRouter);
+app.use('/api/audit', auditRouter);
+app.use('/api/fitiadmin', fitiadminRouter);
+
+
 
 app.listen(3000 , () => console.log('Listening on Port 3000....'));

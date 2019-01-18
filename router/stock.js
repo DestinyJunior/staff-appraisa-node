@@ -75,7 +75,7 @@ Stock.findByIdAndUpdate(stockId, query, {new:true})
         });
 });
 
-stockRoute.delete('/delete/:id', (req, res) => {
+stockRoute.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
   Stock.findByIdAndRemove(req.params.id)
         .then(stock => {

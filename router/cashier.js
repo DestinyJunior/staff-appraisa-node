@@ -80,7 +80,7 @@ Cashier.findByIdAndUpdate(cashierId, query, {new:true})
         });
 });
 
-cashierRoute.delete('/delete/:id', (req, res) => {
+cashierRoute.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
    Cashier.findByIdAndRemove(req.params.id)
         .then(cashier => {

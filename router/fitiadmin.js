@@ -1,15 +1,15 @@
-//var passport = require('passport');
-//var config = require('../config/main');
-//var jwt = require('jsonwebtoken');
+var passport = require('passport');
+var config = require('../config/main');
+var jwt = require('jsonwebtoken');
 var FitiAdmin = require('../models/fitiadmin');
 var express = require('express');
 
 var fitiadminRouter = express.Router();
 
-fitiadminRouter.post('/fitiadmin', (req, res) => {
+fitiadminRouter.post('/fitiadmin', passport.authenticate('jwt', { session: false}), (req, res) => {
     
         let newFitiAdmin = new FitiAdmin({
-            //userId: req.user._id,
+            userId: req.user._id,
             date: req.body.date,
             numberOfRegistration: req.body.numberOfRegistration,
             amountFromRegistration: req.body.amountFromRegistration,
@@ -40,7 +40,7 @@ fitiadminRouter.post('/fitiadmin', (req, res) => {
                 });
         });
 });
-fitiadminRouter.get('/get', (req, res) => {
+fitiadminRouter.get('/get', passport.authenticate('jwt', { session: false}), (req, res) => {
     FitiAdmin.find()
         .then(fitiadmin => {
             res.json({
@@ -57,7 +57,7 @@ fitiadminRouter.get('/get', (req, res) => {
             });
         });
 });
-fitiadminRouter.get('/update',  (req, res) => {
+fitiadminRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
     const query = req.query;
     const fitiadminId = query.id;
     delete query.id;
@@ -78,7 +78,7 @@ fitiadminRouter.get('/update',  (req, res) => {
             });
         });
 });
-fitiadminRouter.get('/delete/:id',  (req, res) => {
+fitiadminRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
     FitiAdmin.findByIdAndRemove(req.params.id)
         .then(fitiadmin => {

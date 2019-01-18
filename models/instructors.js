@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 
 var InstructorSchema = new mongoose.Schema({
-    //userId: {
-        //type: String,
-        //required: true
-    //},
+    userId: {
+        type: String,
+        required: true
+    },
     date: {
         type: String,
         required: true

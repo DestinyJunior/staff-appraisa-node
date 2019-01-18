@@ -6,10 +6,10 @@ var express = require('express');
 
 var salesRouter = express.Router();
 
-salesRouter.post('/sales', (req, res) => {
+salesRouter.post('/sales', passport.authenticate('jwt', { session: false}), (req, res) => {
     
         let newSales = new Sales({
-            //userId: req.user._id,
+            userId: req.user._id,
             date: req.body.date,
             cashRefound: req.body.cashRefound,
             singleInvoice: req.body.singleInvoice,
@@ -39,7 +39,7 @@ salesRouter.post('/sales', (req, res) => {
                 });
         });
 });
-salesRouter.get('/get', (req, res) => {
+salesRouter.get('/get', passport.authenticate('jwt', { session: false}), (req, res) => {
     Sales.find()
         .then(sales => {
             res.json({
@@ -56,7 +56,7 @@ salesRouter.get('/get', (req, res) => {
             });
         });
 });
-salesRouter.get('/update',  (req, res) => {
+salesRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
     const query = req.query;
     const salesId = query.id;
     delete query.id;
@@ -77,7 +77,7 @@ salesRouter.get('/update',  (req, res) => {
             });
         });
 });
-salesRouter.get('/delete/:id',  (req, res) => {
+salesRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
     Sales.findByIdAndRemove(req.params.id)
         .then(sales => {

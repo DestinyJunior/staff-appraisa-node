@@ -78,7 +78,7 @@ solarRoute.get('/', passport.authenticate('jwt', { session: false}), (req, res) 
             });
     });
 
-    solarRoute.delete('/delete/:id', (req, res) => {
+    solarRoute.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
         Solar.findByIdAndRemove(req.params.id)
             .then(solar => {

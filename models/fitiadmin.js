@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 
 var FitiAdminSchema = new mongoose.Schema({
-    //userId: {
-      //  type: String,
-        //required: true
-    //},
+    userId: {
+        type: String,
+        required: true
+    },
     date: {
         type: Date,
         required: true

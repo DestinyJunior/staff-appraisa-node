@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 
-var DeliverySchema = new mongoose.Schema({
-    //userId: {
-        //type: String,
-        //required: true
-    //},
+var DeliveryManSchema = new mongoose.Schema({
+    userId: {
+        type: String,
+        required: true
+    },
     date: {
         type: Date,
         required: true
@@ -48,4 +48,4 @@ var DeliverySchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('delivery', DeliverySchema);
+module.exports = mongoose.model('deliveryman', DeliveryManSchema);

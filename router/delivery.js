@@ -77,7 +77,7 @@ Delivery.findByIdAndUpdate(deliveryId, query, {new:true})
         });
 });
 
-deliveryRoute.delete('/delete/:id', (req, res) => {
+deliveryRoute.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
   Delivery.findByIdAndRemove(req.params.id)
         .then(delivery => {

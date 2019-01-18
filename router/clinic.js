@@ -79,7 +79,7 @@ clinic.findByIdAndUpdate(clinicId, query, {new:true})
         });
 });
 
-clinicRoute.delete('/delete/:id', (req, res) => {
+clinicRoute.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
   clinic.findByIdAndRemove(req.params.id)
         .then(clinic => {

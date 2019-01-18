@@ -6,10 +6,10 @@ var express = require('express');
 
 var AuditRouter = express.Router();
 
-AuditRouter.post('/audit', (req, res) => {
+AuditRouter.post('/audit', passport.authenticate('jwt', { session: false}), (req, res) => {
     
         let newAudit = new Audit({
-            //userId: req.user._id,
+            userId: req.user._id,
             date: req.body.date,
             disputedTransaction: req.body.disputedTransaction,
             suspensedShortageAcrossBranches: req.body.suspensedShortageAcrossBranches,
@@ -38,7 +38,7 @@ AuditRouter.post('/audit', (req, res) => {
                 });
         });
 });
-AuditRouter.get('/get', (req, res) => {
+AuditRouter.get('/get', passport.authenticate('jwt', { session: false}), (req, res) => {
     Audit.find()
         .then(audit => {
             res.json({
@@ -55,7 +55,7 @@ AuditRouter.get('/get', (req, res) => {
             });
         });
 });
-AuditRouter.get('/update',  (req, res) => {
+AuditRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
     const query = req.query;
     const auditId = query.id;
     delete query.id;
@@ -76,7 +76,7 @@ AuditRouter.get('/update',  (req, res) => {
             });
         });
 });
-AuditRouter.get('/delete/:id',  (req, res) => {
+AuditRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}),  (req, res) => {
     
     Audit.findByIdAndRemove(req.params.id)
         .then(audit => {

@@ -76,7 +76,7 @@ Technician.findByIdAndUpdate(technicianId, query, {new:true})
         });
 });
 
-technicianRoute.delete('/delete/:id', (req, res) => {
+technicianRoute.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
   Technician.findByIdAndRemove(req.params.id)
         .then(technician => {

@@ -6,10 +6,10 @@ var express = require('express');
 
 var MailmonitoringRouter = express.Router();
 
-MailmonitoringRouter.post('/mailmonitoring', (req, res) => {
+MailmonitoringRouter.post('/mailmonitoring', passport.authenticate('jwt', { session: false}), (req, res) => {
     
         let newMailmonitoring = new Mailmonitoring({
-            //userId: req.user._id,
+            userId: req.user._id,
             date: req.body.date,
             entryTime: req.body.entryTime,
             responseTime: req.body.responseTime,
@@ -34,7 +34,7 @@ MailmonitoringRouter.post('/mailmonitoring', (req, res) => {
                 });
         });
 });
-MailmonitoringRouter.get('/get', (req, res) => {
+MailmonitoringRouter.get('/get', passport.authenticate('jwt', { session: false}), (req, res) => {
     Mailmonitoring.find()
         .then(mailmonitoring => {
             res.json({
@@ -51,7 +51,7 @@ MailmonitoringRouter.get('/get', (req, res) => {
             });
         });
 });
-MailmonitoringRouter.get('/update',  (req, res) => {
+MailmonitoringRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
     const query = req.query;
     const mailmonitoringId = query.id;
     delete query.id;
@@ -72,7 +72,7 @@ MailmonitoringRouter.get('/update',  (req, res) => {
             });
         });
 });
-MailmonitoringRouter.get('/delete/:id',  (req, res) => {
+MailmonitoringRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
     Mailmonitoring.findByIdAndRemove(req.params.id)
         .then(mailmonitoring => {

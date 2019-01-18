@@ -6,10 +6,10 @@ var express = require('express');
 
 var DeliveryManRouter = express.Router();
 
-DeliveryManRouter.post('/deliveryman', (req, res) => {
+DeliveryManRouter.post('/deliveryman', passport.authenticate('jwt', { session: false}), (req, res) => {
     
         let newDeliveryMan = new DeliveryMan({
-            //userId: req.user._id,
+            userId: req.user._id,
             date: req.body.date,
             loginTime: req.body.loginTime,
             itemDelivered: req.body.itemDelivered,
@@ -39,7 +39,7 @@ DeliveryManRouter.post('/deliveryman', (req, res) => {
                 });
         });
 });
-DeliveryManRouter.get('/get', (req, res) => {
+DeliveryManRouter.get('/get', passport.authenticate('jwt', { session: false}), (req, res) => {
     DeliveryMan.find()
         .then(deliveryman => {
             res.json({
@@ -56,7 +56,7 @@ DeliveryManRouter.get('/get', (req, res) => {
             });
         });
 });
-DeliveryManRouter.get('/update',  (req, res) => {
+DeliveryManRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
     const query = req.query;
     const deliveryId = query.id;
     delete query.id;
@@ -77,7 +77,7 @@ DeliveryManRouter.get('/update',  (req, res) => {
             });
         });
 });
-DeliveryManRouter.get('/delete/:id',  (req, res) => {
+DeliveryManRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
     DeliveryMan.findByIdAndRemove(req.params.id)
         .then(deliveryman => {
