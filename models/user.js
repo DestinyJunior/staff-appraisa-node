@@ -72,7 +72,7 @@ var UserSchema = new mongoose.Schema({
         },
         role: {
             type: String,
-            default: ['Admin', 'staff']
+            required: true
         }       
 
 });

@@ -65,7 +65,7 @@ userRoute.post('/authenticate', (req, res) => {
 });
 
 // Protect dashboard route with JWT
-userRoute.get('/dashboard', passport.authenticate('jwt', { session: false}), (req, res) => {
+userRoute.get('/dashboard'/*, passport.authenticate('jwt', { session: false})*/, (req, res) => {
     res.send('It worked! User id is: ' + req.user._id + '.');
 });
 
