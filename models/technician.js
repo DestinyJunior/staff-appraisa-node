@@ -9,10 +9,6 @@ var technicianSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    loginTime: {
-        type: Date,
-        required: true
-    },
     successfulWorkDone: {
         type: Number,
         required: false

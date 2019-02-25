@@ -11,7 +11,6 @@ instructorRouter.post('/instructors', passport.authenticate('jwt', { session: fa
         let newInstructor = new Instructor({
             userId: req.body.userId,
             date: req.body.date,
-            loginInTime: req.body.loginInTime,
             numberOfStdTaught: req.body.numberOfStdTaught,
             specialSolDev: req.body.specialSolDev,
             professionalCoursesHandled: req.body.professionalCoursesHandled,

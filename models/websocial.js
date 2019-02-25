@@ -9,10 +9,6 @@ var WebSocialSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    loginInTime: {
-        type: String,
-        required: true
-    },
     facebookLikes: {
         type: Number,
         required: true
@@ -29,11 +25,11 @@ var WebSocialSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    twetterFollwers: {
+    twitterFollwers: {
         type: Number,
         required: true
     },
-    twetterPost: {
+    twitterPost: {
         type: Number,
         required: true
     },

@@ -14,7 +14,6 @@ cashierRoute.post('/register', passport.authenticate('jwt', { session: false}), 
         let newCashier = new Cashier({
             userId: req.user._id,
             date: req.body.date,
-            loginTime: req.body.loginTime,
             numberOfTransactions: req.body.numberOfTransactions,
             amountOfUnresolvedReconcilation: req.body.amountOfUnresolvedReconcilation,
             cashShortage: req.body.cashShortage,

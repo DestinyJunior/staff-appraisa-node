@@ -9,10 +9,6 @@ var DeliveryManSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    loginTime: {
-        type: String,
-        required: true
-    },
     itemDelivered: {
         type: String,
         required: true
@@ -30,10 +26,6 @@ var DeliveryManSchema = new mongoose.Schema({
         required: true
     },
     salesContribution: {
-        type: String,
-        required: true
-    },
-    logout: {
         type: String,
         required: true
     },

@@ -14,7 +14,6 @@ technicianRoute.post('/register', passport.authenticate('jwt', { session: false}
     let newTechnician = new Technician({
         userId: req.user._id,
         date: req.body.date,
-        loginTime: req.body.loginTime,
         successfulWorkDone: req.body.successfulWorkDone,
         revenueFromSuccessfulWork: req.body.revenueFromSuccessfulWork,
         workInProgress: req.body.workInProgress,

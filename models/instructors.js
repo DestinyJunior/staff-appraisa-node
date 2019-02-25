@@ -8,11 +8,7 @@ var InstructorSchema = new mongoose.Schema({
     date: {
         type: String,
         required: true
-    },
-    loginInTime: {
-        type: String,
-        required: true
-    },
+    },    
     numberOfStdTaught: {
         type: Number,
         required: true
@@ -35,10 +31,6 @@ var InstructorSchema = new mongoose.Schema({
     },
     leaveDays: {
         type: Number,
-        required: true
-    },
-    logOutTime: {
-        type: String,
         required: true
     }
    

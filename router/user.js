@@ -47,7 +47,7 @@ userRoute.post('/authenticate', (req, res) => {
         if(err) throw err;
 
         if(!user){
-            res.send({success: false, message: 'Authentication failed. User not found'});
+            res.send({success: false, message: 'Email not Correct Check and try Again'});
         } else {
             //Check if the password matches
             user.comparePassword(req.body.password, (err, isMatch) => {
@@ -57,7 +57,7 @@ userRoute.post('/authenticate', (req, res) => {
                     });
                     res.json({success: true, token: 'JWT ' + token, user: user})
                 } else {
-                    res.send({success: false, message: 'Authentication failed. Passwords did not match'});
+                    res.send({success: false, message: 'Password is Incorrect'});
                 }
             });
         }

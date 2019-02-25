@@ -9,10 +9,6 @@ var CashierSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    loginTime: {
-        type: Date,
-        required: true
-    },
    numberOfTransactions: {
         type: Number,
         required: true
@@ -36,11 +32,7 @@ var CashierSchema = new mongoose.Schema({
     stockCollectionExpenses: {
         type: Number,
         required: true
-    },
-    logout: {
-        type: Date,
-        required: true
-    }     
+    }   
 });
 
 module.exports = mongoose.model('Cashier',CashierSchema);

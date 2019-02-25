@@ -11,14 +11,13 @@ websocialRouter.post('/websocial', passport.authenticate('jwt', { session: false
         let newwebsocial = new WebSocial({
             userId: req.user._id,
             date: req.body.date,
-            loginInTime: req.body.loginInTime,
             facebookLikes: req.body.facebookLikes,
             instagramFollowers: req.body.instagramFollowers,
             postOnFacebook: req.body.postOnFacebook,
             postOnInstagram: req.body.postOnInstagram,
-            twetterFollwers : req.body.twetterFollwers,
-            twetterPost: req.body.twetterPost,
-            logOutTime: req.body.logOutTime
+            twitterFollwers : req.body.twitterFollwers,
+            twitterPost: req.body.twitterPost
+            
             
                     
         });

@@ -12,7 +12,7 @@ var clinicRoute = express.Router();
 clinicRoute.post('/register', passport.authenticate('jwt', { session: false}), (req, res) => {
     
     let newclinic = new clinic({
-        userId: req.user._id,//req.param._id,
+        userId: req.user._id,
         date: req.body.date,
         totalSales: req.body.totalSales,
         refund: req.body.refund,

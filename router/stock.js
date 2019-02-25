@@ -12,7 +12,7 @@ var stockRoute = express.Router();
 stockRoute.post('/register', passport.authenticate('jwt', { session: false}), (req, res) => {
     
     let newStock = new Stock({
-        userId: req.user._id,//req.param._id,
+        userId: req.user._id,
         serialNumber: req.body.serialNumber,
         sortedRma: req.body.sortedRma,
         rmaSuplier: req.body.rmaSuplier,

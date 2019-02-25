@@ -11,13 +11,11 @@ DeliveryManRouter.post('/deliveryman', passport.authenticate('jwt', { session: f
         let newDeliveryMan = new DeliveryMan({
             userId: req.user._id,
             date: req.body.date,
-            loginTime: req.body.loginTime,
             itemDelivered: req.body.itemDelivered,
             costOfItemDelivered: req.body.costOfItemDelivered,
             itemrepaired: req.body.itemrepaired,
             costOfItemRepaired: req.body.costOfItemRepaired,
             salesContribution: req.body.salesContribution,
-            logout: req.body.logout,
             offDay: req.body.offDay,
             leaveDay: req.body.leaveDay,
            
