@@ -6,7 +6,7 @@ var express = require('express');
 
 var instructorRouter = express.Router();
 
-instructorRouter.post('/instructors', passport.authenticate('jwt', { session: false}), (req, res) => {
+instructorRouter.post('/register', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
         let newInstructor = new Instructor({
             userId: req.body.userId,
@@ -26,7 +26,7 @@ instructorRouter.post('/instructors', passport.authenticate('jwt', { session: fa
                 console.log(newInstructor)
                 return res.json({
                     success: false, 
-                    message: 'This instructor already exist'
+                    message: err
                 })
             } 
             res.json({
