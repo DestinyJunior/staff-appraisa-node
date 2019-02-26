@@ -25,7 +25,7 @@ var WebSocialSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    twitterFollwers: {
+    twitterFollowers: {
         type: Number,
         required: true
     },
@@ -33,11 +33,6 @@ var WebSocialSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    logOutTime: {
-        type: String,
-        required: true
-    }
-   
 });
 
 module.exports = mongoose.model('websocial', WebSocialSchema);

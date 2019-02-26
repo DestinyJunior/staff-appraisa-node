@@ -15,7 +15,7 @@ websocialRouter.post('/register', /*passport.authenticate('jwt', { session: fals
             instagramFollowers: req.body.instagramFollowers,
             postOnFacebook: req.body.postOnFacebook,
             postOnInstagram: req.body.postOnInstagram,
-            twitterFollwers : req.body.twitterFollwers,
+            twitterFollowers : req.body.twitterFollowers,
             twitterPost: req.body.twitterPost
             
             
