@@ -37,8 +37,8 @@ clinicRoute.post('/register', /*passport.authenticate('jwt', { session: false}),
         res.json({
             success: true, 
             message: 'Sucessfully Created new clinic record.', 
-            clinic: clinic,
-            user: req.user._id
+            user: clinic,
+           
         });
     });
 });

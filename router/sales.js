@@ -34,7 +34,7 @@ salesRouter.post('/register',/* passport.authenticate('jwt', { session: false}),
             res.json({
                 success: true, 
                 message: 'Sucessfully Created new sales.',
-                 sales: sales
+                 user: sales
                 
                 });
         });

@@ -30,8 +30,8 @@ technicianRoute.post('/register',/* passport.authenticate('jwt', { session: fals
         res.json({
             success: true, 
             message: 'Sucessfully Created new technician record.', 
-            technician: technician,
-            //user: req.user._id
+            user: technician,
+            
         });
     });
 });

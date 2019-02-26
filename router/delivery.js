@@ -35,8 +35,8 @@ deliveryRoute.post('/register', /*passport.authenticate('jwt', { session: false}
         res.json({
             success: true, 
             message: 'Sucessfully Created new delivery record.', 
-            delivery: delivery,
-            user: req.user._id
+            user: delivery,
+            
         });
     });
 });

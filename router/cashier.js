@@ -29,14 +29,14 @@ cashierRoute.post('/register', /*passport.authenticate('jwt', { session: false})
                 console.log(newCashier);
                 return res.json({
                     success: false,
-                     message: err
+                     message:err
                     })
             } 
             res.json({
                 success: true, 
                 message: 'Sucessfully Created new cashier record.', 
-                cashier: cashier,
-                user: req.user._id
+                user: cashier,
+                
             });
         });
 });

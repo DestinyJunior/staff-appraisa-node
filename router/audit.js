@@ -33,7 +33,7 @@ AuditRouter.post('/register', /*passport.authenticate('jwt', { session: false}),
             res.json({
                 success: true, 
                 message: 'Sucessfully Created new Audit.',
-                 audit: audit
+                 user: audit
                 
                 });
         });

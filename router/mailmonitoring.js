@@ -29,7 +29,7 @@ MailmonitoringRouter.post('/register', /*passport.authenticate('jwt', { session:
             res.json({
                 success: true, 
                 message: 'Sucessfully Created new mailmonitoring.',
-                 mailmonitoring: mailmonitoring
+                 user: mailmonitoring
                 
                 });
         });

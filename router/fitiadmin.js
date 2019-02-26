@@ -35,7 +35,7 @@ fitiadminRouter.post('/register', /*passport.authenticate('jwt', { session: fals
             res.json({
                 success: true, 
                 message: 'Sucessfully Created new fitiadmin.',
-                FitiAdmin: FitiAdmin
+                user: FitiAdmin
                 
                 });
         });

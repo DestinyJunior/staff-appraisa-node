@@ -30,7 +30,7 @@ instructorRouter.post('/register', /*passport.authenticate('jwt', { session: fal
             res.json({
                 success: true, 
                 message: 'Sucessfully Created new instructor.',
-                instructor: Instructor
+                user: Instructor
                 
                 });
         });

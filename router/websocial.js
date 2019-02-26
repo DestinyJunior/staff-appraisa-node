@@ -32,7 +32,7 @@ websocialRouter.post('/register', /*passport.authenticate('jwt', { session: fals
             res.json({
                 success: true, 
                 message: 'Sucessfully Created new staff.',
-                 websocial: websocial
+                 user: websocial
                 
                 });
         });

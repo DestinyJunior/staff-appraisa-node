@@ -32,7 +32,7 @@ DeliveryManRouter.post('/register', /*passport.authenticate('jwt', { session: fa
             res.json({
                 success: true, 
                 message: 'Sucessfully Created new deliveryman.',
-                 delivery: delivery
+                 user: delivery
                 
                 });
         });
