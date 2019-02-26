@@ -13,6 +13,7 @@ deliveryRoute.post('/register', /*passport.authenticate('jwt', { session: false}
     
     let newdelivery = new Delivery({
         userId: req.body.userId,
+        date: req.body.date,
         serialNumber: req.body.serialNumber,
         sortedRma: req.body.sortedRma,
         rmaSuplier: req.body.rmaSuplier,

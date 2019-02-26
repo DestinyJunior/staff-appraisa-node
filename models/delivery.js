@@ -5,6 +5,10 @@ var DeliverySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    date: {
+        type: Date,
+        required: true
+    },
     serialNumber: {
         type: Number,
         required: true
