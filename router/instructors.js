@@ -16,9 +16,7 @@ instructorRouter.post('/register', /*passport.authenticate('jwt', { session: fal
             professionalCoursesHandled: req.body.professionalCoursesHandled,
             newLetterPostedOnWeb: req.body.newLetterPostedOnWeb,
             offDay : req.body.offDay,
-            leaveDays: req.body.leaveDays,
-            logOutTime: req.body.logOutTime
-            
+            leaveDays: req.body.leaveDays,          
                     
         });
         Instructor.create(newInstructor, (err, Instructor) =>{
