@@ -9,10 +9,10 @@ var express = require('express');
 
 var cashierRoute = express.Router();
 
-cashierRoute.post('/register', passport.authenticate('jwt', { session: false}), (req, res) => {
+cashierRoute.post('/register', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
         let newCashier = new Cashier({
-            userId: req.user._id,
+            userId: req.body.userId,
             date: req.body.date,
             numberOfTransactions: req.body.numberOfTransactions,
             amountOfUnresolvedReconcilation: req.body.amountOfUnresolvedReconcilation,
@@ -29,7 +29,8 @@ cashierRoute.post('/register', passport.authenticate('jwt', { session: false}), 
                 console.log(newCashier);
                 return res.json({
                     success: false,
-                     message: 'An error occurred try again later'})
+                     message: err
+                    })
             } 
             res.json({
                 success: true, 

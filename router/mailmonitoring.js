@@ -6,10 +6,10 @@ var express = require('express');
 
 var MailmonitoringRouter = express.Router();
 
-MailmonitoringRouter.post('/mailmonitoring', passport.authenticate('jwt', { session: false}), (req, res) => {
+MailmonitoringRouter.post('/register', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
         let newMailmonitoring = new Mailmonitoring({
-            userId: req.user._id,
+            userId: req.body.userId,
             date: req.body.date,
             entryTime: req.body.entryTime,
             responseTime: req.body.responseTime,
@@ -23,7 +23,7 @@ MailmonitoringRouter.post('/mailmonitoring', passport.authenticate('jwt', { sess
                 console.log(newMailmonitoring)
                 return res.json({
                     success: false, 
-                    message: 'mailmonitoring not found'
+                    message: err
                 })
             } 
             res.json({

@@ -6,10 +6,10 @@ var express = require('express');
 
 var salesRouter = express.Router();
 
-salesRouter.post('/sales', passport.authenticate('jwt', { session: false}), (req, res) => {
+salesRouter.post('/register',/* passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
         let newSales = new Sales({
-            userId: req.user._id,
+            userId: req.body.userId,
             date: req.body.date,
             cashRefound: req.body.cashRefound,
             singleInvoice: req.body.singleInvoice,
@@ -28,7 +28,7 @@ salesRouter.post('/sales', passport.authenticate('jwt', { session: false}), (req
                 console.log(newSales)
                 return res.json({
                     success: false, 
-                    message: 'Sales not found'
+                    message: err
                 })
             } 
             res.json({

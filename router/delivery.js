@@ -9,10 +9,10 @@ var express = require('express');
 
 var deliveryRoute = express.Router();
 
-deliveryRoute.post('/register', passport.authenticate('jwt', { session: false}), (req, res) => {
+deliveryRoute.post('/register', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     let newdelivery = new Delivery({
-        userId: req.user._id,
+        userId: req.body.userId,
         serialNumber: req.body.serialNumber,
         sortedRma: req.body.sortedRma,
         rmaSuplier: req.body.rmaSuplier,
@@ -27,7 +27,10 @@ deliveryRoute.post('/register', passport.authenticate('jwt', { session: false}),
     //Attemt to save the new delivery record 
     Delivery.create(newdelivery, (err, delivery) =>{
         if(err){
-            return res.json({success: false, message: 'An error occurred try again later'})
+            return res.json({
+                success: false,
+                 message: err
+                })
         } 
         res.json({
             success: true, 

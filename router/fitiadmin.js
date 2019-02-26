@@ -6,10 +6,10 @@ var express = require('express');
 
 var fitiadminRouter = express.Router();
 
-fitiadminRouter.post('/fitiadmin', passport.authenticate('jwt', { session: false}), (req, res) => {
+fitiadminRouter.post('/register', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
         let newFitiAdmin = new FitiAdmin({
-            userId: req.user._id,
+            userId: req.body.userId,
             date: req.body.date,
             numberOfRegistration: req.body.numberOfRegistration,
             amountFromRegistration: req.body.amountFromRegistration,
@@ -29,7 +29,7 @@ fitiadminRouter.post('/fitiadmin', passport.authenticate('jwt', { session: false
                 console.log(newFitiAdmin)
                 return res.json({
                     success: false, 
-                    message: 'This admin already exit'
+                    message: err
                 })
             } 
             res.json({

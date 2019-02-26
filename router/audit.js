@@ -6,10 +6,10 @@ var express = require('express');
 
 var AuditRouter = express.Router();
 
-AuditRouter.post('/audit', passport.authenticate('jwt', { session: false}), (req, res) => {
+AuditRouter.post('/register', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
         let newAudit = new Audit({
-            userId: req.user._id,
+            userId: req.body.userId,
             date: req.body.date,
             disputedTransaction: req.body.disputedTransaction,
             suspensedShortageAcrossBranches: req.body.suspensedShortageAcrossBranches,
@@ -27,7 +27,7 @@ AuditRouter.post('/audit', passport.authenticate('jwt', { session: false}), (req
                 console.log(newAudit)
                 return res.json({
                     success: false, 
-                    message: 'Audit not found'
+                    message: err
                 })
             } 
             res.json({

@@ -9,10 +9,10 @@ var express = require('express');
 
 var stockRoute = express.Router();
 
-stockRoute.post('/register', passport.authenticate('jwt', { session: false}), (req, res) => {
+stockRoute.post('/register', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     let newStock = new Stock({
-        userId: req.user._id,
+        userId: req.body.userId,
         serialNumber: req.body.serialNumber,
         sortedRma: req.body.sortedRma,
         rmaSuplier: req.body.rmaSuplier,
@@ -25,7 +25,10 @@ stockRoute.post('/register', passport.authenticate('jwt', { session: false}), (r
     //Attemt to save the new stock record 
     Stock.create(newStock, (err, stock) =>{
         if(err){
-            return res.json({success: false, message: 'An error occurred try again later'})
+            return res.json({
+                success: false, 
+                message: err
+            })
         } 
         res.json({
             success: true, 

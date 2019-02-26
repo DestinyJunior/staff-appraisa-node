@@ -6,10 +6,10 @@ var express = require('express');
 
 var websocialRouter = express.Router();
 
-websocialRouter.post('/websocial', passport.authenticate('jwt', { session: false}), (req, res) => {
+websocialRouter.post('/register', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
         let newwebsocial = new WebSocial({
-            userId: req.user._id,
+            userId: req.body.userId,
             date: req.body.date,
             facebookLikes: req.body.facebookLikes,
             instagramFollowers: req.body.instagramFollowers,
@@ -26,7 +26,7 @@ websocialRouter.post('/websocial', passport.authenticate('jwt', { session: false
                 console.log(newwebsocial)
                 return res.json({
                     success: false, 
-                    message: 'This user already exist'
+                    message: err
                 })
             } 
             res.json({

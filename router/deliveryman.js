@@ -6,10 +6,10 @@ var express = require('express');
 
 var DeliveryManRouter = express.Router();
 
-DeliveryManRouter.post('/deliveryman', passport.authenticate('jwt', { session: false}), (req, res) => {
+DeliveryManRouter.post('/register', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
         let newDeliveryMan = new DeliveryMan({
-            userId: req.user._id,
+            userId: req.body.userId,
             date: req.body.date,
             itemDelivered: req.body.itemDelivered,
             costOfItemDelivered: req.body.costOfItemDelivered,
@@ -26,7 +26,7 @@ DeliveryManRouter.post('/deliveryman', passport.authenticate('jwt', { session: f
                 console.log(newDeliveryMan)
                 return res.json({
                     success: false, 
-                    message: 'deliveryman not found'
+                    message: err
                 })
             } 
             res.json({

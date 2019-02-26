@@ -10,7 +10,7 @@ var express = require('express');
 
 var solarRoute = express.Router();
 
-solarRoute.post('/register', passport.authenticate('jwt', { session: false}), (req, res) => {
+solarRoute.post('/register',/* passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
         let newSolar = new Solar({
             userId: req.user._id,//req.param._id,
@@ -28,13 +28,16 @@ solarRoute.post('/register', passport.authenticate('jwt', { session: false}), (r
         //Attemt to save the new solar record 
         Solar.create(newSolar, (err, solar) =>{
             if(err){
-                return res.json({success: false, message: 'An error occurred try again later'})
+                return res.json({
+                    success: false, 
+                    message: err
+                })
             } 
             res.json({
                 success: true, 
                 message: 'Sucessfully Created new solar record.', 
                 solar: solar,
-                user: req.user._id
+               // user: req.user._id
             });
         });
 });

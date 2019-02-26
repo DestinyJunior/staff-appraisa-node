@@ -9,10 +9,10 @@ var express = require('express');
 
 var technicianRoute = express.Router();
 
-technicianRoute.post('/register', passport.authenticate('jwt', { session: false}), (req, res) => {
+technicianRoute.post('/register',/* passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     let newTechnician = new Technician({
-        userId: req.user._id,
+        userId: req.body.userId,
         date: req.body.date,
         successfulWorkDone: req.body.successfulWorkDone,
         revenueFromSuccessfulWork: req.body.revenueFromSuccessfulWork,
@@ -25,13 +25,13 @@ technicianRoute.post('/register', passport.authenticate('jwt', { session: false}
     Technician.create(newTechnician, (err, technician) =>{
         if(err){
             console.log(newTechnician);
-            return res.json({success: false, message: 'An error occurred try again later'})
+            return res.json({success: false, message: err})
         } 
         res.json({
             success: true, 
             message: 'Sucessfully Created new technician record.', 
             technician: technician,
-            user: req.user._id
+            //user: req.user._id
         });
     });
 });

@@ -9,10 +9,10 @@ var express = require('express');
 
 var clinicRoute = express.Router();
 
-clinicRoute.post('/register', passport.authenticate('jwt', { session: false}), (req, res) => {
+clinicRoute.post('/register', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     let newclinic = new clinic({
-        userId: req.user._id,
+        userId: req.body.userId,
         date: req.body.date,
         totalSales: req.body.totalSales,
         refund: req.body.refund,
@@ -29,7 +29,10 @@ clinicRoute.post('/register', passport.authenticate('jwt', { session: false}), (
     //Attemt to save the new clinic record 
     clinic.create(newclinic, (err, clinic) =>{
         if(err){
-            return res.json({success: false, message: 'An error occurred try again later'})
+            return res.json({
+                success: false, 
+                message: err
+            })
         } 
         res.json({
             success: true, 
