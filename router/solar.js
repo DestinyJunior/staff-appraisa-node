@@ -13,7 +13,7 @@ var solarRoute = express.Router();
 solarRoute.post('/register',/* passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
         let newSolar = new Solar({
-            userId: req.user._id,//req.param._id,
+            userId: req.body.userId,//req.param._id,
             date: req.body.date,
             newInstallation: req.body.newInstallation,
             totalSalesFromNewInstallation: req.body.totalSalesFromNewInstallation,
