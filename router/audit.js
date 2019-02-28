@@ -55,6 +55,25 @@ AuditRouter.get('/get', passport.authenticate('jwt', { session: false}), (req, r
             });
         });
 });
+
+AuditRouter.get('/fetch/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var userId = req.params.userId;
+    Audit.find({'userId': userId})
+        .then(audit => {
+            res.json({
+                success: true,
+                message: 'Audit found',
+                audit: audit
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'delivery not found',
+                audit: ''
+            });
+        });
+});
 AuditRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
     const query = req.query;
     const auditId = query.id;
