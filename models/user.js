@@ -31,7 +31,7 @@ var UserSchema = new mongoose.Schema({
             required: false
         },
         dateOfBirth: {
-            type: Date,
+            type: String,
             required: true
         },
         address: {

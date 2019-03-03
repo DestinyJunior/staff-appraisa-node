@@ -19,8 +19,7 @@ cashierRoute.post('/register', /*passport.authenticate('jwt', { session: false})
             cashShortage: req.body.cashShortage,
             cashOverage: req.body.cashOverage,
             debtFromCustomers : req.body.debtFromCustomers,
-            stockCollectionExpenses: req.body.stockCollectionExpenses,
-            logout: req.body.logout
+            stockCollectionExpenses: req.body.stockCollectionExpenses
                  
         });
         //Attemt to save the new solar record 
@@ -41,7 +40,7 @@ cashierRoute.post('/register', /*passport.authenticate('jwt', { session: false})
         });
 });
 
-cashierRoute.get('/', passport.authenticate('jwt', { session: false}), (req, res) =>  {
+cashierRoute.get('/get', passport.authenticate('jwt', { session: false}), (req, res) =>  {
     Cashier.find()
     .then(cashier => {
         res.json({
@@ -59,28 +58,56 @@ cashierRoute.get('/', passport.authenticate('jwt', { session: false}), (req, res
     });
 });
 
-cashierRoute.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
-    const query = req.query;
-    const cashierId = query.id;
-    delete query.id;
-Cashier.findByIdAndUpdate(cashierId, query, {new:true})
-        .then(cashier => {
-            res.json({
-                success: true,
-                message: 'Solar record updated',
-                cashier: cashier
-            });
-        })
-        .catch(err => {
-            res.json({
-                success: false,
-                message: 'Solar record not found',
-                solar: ''
-            });
+cashierRoute.get('/fetch/:userId', /*passport.authenticate('jwt', { session: false}),*/ (req, res) =>  {
+    var userId = req.params.userId;
+    Cashier.find({'userId' : userId})
+    .then(cashier => {
+        res.json({
+            success: true,
+            message: 'cashier records  found',
+            cashier: cashier
         });
+    })
+    .catch(err => {
+        res.json({
+            success: false,
+            message: 'cashier records not found',
+            cashier: ''
+        });
+    });
 });
 
-cashierRoute.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
+cashierRoute.post('/update', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+                id = req.body._id;
+                query = {
+                userId: req.body.userId,
+                date: req.body.date,
+                numberOfTransactions: req.body.numberOfTransactions,
+                amountOfUnresolvedReconcilation: req.body.amountOfUnresolvedReconcilation,
+                cashShortage: req.body.cashShortage,
+                cashOverage: req.body.cashOverage,
+                debtFromCustomers : req.body.debtFromCustomers,
+                stockCollectionExpenses: req.body.stockCollectionExpenses
+         };   
+
+    Cashier.findByIdAndUpdate(cashierId, query, {new:true})
+            .then(cashier => {
+                res.json({
+                    success: true,
+                    message: 'Solar record updated',
+                    cashier: cashier
+                });
+            })
+            .catch(err => {
+                res.json({
+                    success: false,
+                    message: 'Solar record not found',
+                    solar: ''
+                });
+            });
+});
+
+cashierRoute.delete('/delete/:id',/* passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
    Cashier.findByIdAndRemove(req.params.id)
         .then(cashier => {

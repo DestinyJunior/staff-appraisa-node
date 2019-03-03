@@ -51,10 +51,37 @@ MailmonitoringRouter.get('/get', passport.authenticate('jwt', { session: false})
             });
         });
 });
-MailmonitoringRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
-    const query = req.query;
-    const mailmonitoringId = query.id;
-    delete query.id;
+
+MailmonitoringRouter.get('/fetch/:userId', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+    var userId = req.params.userId;
+    Mailmonitoring.find({'userId' : userId})
+        .then(mailmonitoring => {
+            res.json({
+                success: true,
+                message: 'mailmonitoring found',
+                mailmonitoring: mailmonitoring
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'mailmonitoring not found',
+                mailmonitoring: ''
+            });
+        });
+});
+
+MailmonitoringRouter.post('/update', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+    id = req.body._id;
+
+    query = {
+            userId: req.body.userId,
+            date: req.body.date,
+            entryTime: req.body.entryTime,
+            responseTime: req.body.responseTime,
+            noResponse: req.body.noResponse,
+            customerWaitingtime: req.body.customerWaitingtime
+    };
 
     Mailmonitoring.findByIdAndUpdate(mailmonitoringId, query, {new:true})
         .then(mailmonitoring => {

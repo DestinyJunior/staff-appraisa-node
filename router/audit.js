@@ -74,12 +74,24 @@ AuditRouter.get('/fetch/:userId' /*passport.authenticate('jwt', { session: false
             });
         });
 });
-AuditRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
-    const query = req.query;
-    const auditId = query.id;
-    delete query.id;
+AuditRouter.post('/update', /*passport.authenticate('jwt', { session: false})*/ (req, res) => {
+    
+        id = req.body._id;
 
-    Audit.findByIdAndUpdate(auditId, query, {new:true})
+        query = {
+        userId: req.body.userId,
+        date: req.body.date,
+        disputedTransaction: req.body.disputedTransaction,
+        suspensedShortageAcrossBranches: req.body.suspensedShortageAcrossBranches,
+        overallDebtFromCustomer: req.body.overallDebtFromCustomer,
+        unresolvedReconciliationAtBranches: req.body.unresolvedReconciliationAtBranches,
+        statementReconciliationAtBranches: req.body.statementReconciliationAtBranches,
+        stockTakingAtBranches: req.body.stockTakingAtBranches,
+        POSReconciliationAtBranches: req.body.POSReconciliationAtBranches,
+        correctionFromCashier: req.body.correctionFromCashier                
+    };
+
+    Audit.findByIdAndUpdate(id, query, {new:true})
         .then(audit => {
             res.json({
                 success: true,
@@ -95,7 +107,7 @@ AuditRouter.get('/update', passport.authenticate('jwt', { session: false}), (req
             });
         });
 });
-AuditRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}),  (req, res) => {
+AuditRouter.get('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/  (req, res) => {
     
     Audit.findByIdAndRemove(req.params.id)
         .then(audit => {

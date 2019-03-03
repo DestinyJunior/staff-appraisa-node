@@ -54,11 +54,39 @@ DeliveryManRouter.get('/get', passport.authenticate('jwt', { session: false}), (
             });
         });
 });
-DeliveryManRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
-    const query = req.query;
-    const deliveryId = query.id;
-    delete query.id;
 
+DeliveryManRouter.get('/fetch/:userId', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+    var userId = req.params.userId;
+    DeliveryMan.find({'userId' : userId})
+        .then(deliveryman => {
+            res.json({
+                success: true,
+                message: 'deliveryman found',
+                deliveryman: deliveryman
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'delivery not found',
+                deliveryman: ''
+            });
+        });
+});
+
+DeliveryManRouter.post('/update', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+        id = req.body._id;
+        query = {
+            userId: req.body.userId,
+            date: req.body.date,
+            itemDelivered: req.body.itemDelivered,
+            costOfItemDelivered: req.body.costOfItemDelivered,
+            itemrepaired: req.body.itemrepaired,
+            costOfItemRepaired: req.body.costOfItemRepaired,
+            salesContribution: req.body.salesContribution,
+            offDay: req.body.offDay,
+            leaveDay: req.body.leaveDay,
+        };
     DeliveryMan.findByIdAndUpdate(deliveryId, query, {new:true})
         .then(deliveryman => {
             res.json({
@@ -75,7 +103,7 @@ DeliveryManRouter.get('/update', passport.authenticate('jwt', { session: false})
             });
         });
 });
-DeliveryManRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
+DeliveryManRouter.get('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     DeliveryMan.findByIdAndRemove(req.params.id)
         .then(deliveryman => {

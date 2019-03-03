@@ -52,11 +52,38 @@ instructorRouter.get('/get', passport.authenticate('jwt', { session: false}), (r
             });
         });
 });
-instructorRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
-    const query = req.query;
-    const instructorId = query.id;
-    delete query.id;
 
+instructorRouter.get('/fetch/:userId', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+    var userId = req.params.userId;
+    Instructor.find({'userId' : userId})
+        .then(instructor => {
+            res.json({
+                success: true,
+                message: 'instructor found',
+                instructor: instructor
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'instructor not found',
+                instructor: ''
+            });
+        });
+});
+
+instructorRouter.post('/update', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+    id = req.body,_id;
+    query = {
+            userId: req.body.userId,
+            date: req.body.date,
+            numberOfStdTaught: req.body.numberOfStdTaught,
+            specialSolDev: req.body.specialSolDev,
+            professionalCoursesHandled: req.body.professionalCoursesHandled,
+            newLetterPostedOnWeb: req.body.newLetterPostedOnWeb,
+            offDay : req.body.offDay,
+            leaveDays: req.body.leaveDays,
+    };
     Instructor.findByIdAndUpdate(instructorId, query, {new:true})
         .then(instructor => {
             res.json({
@@ -73,7 +100,7 @@ instructorRouter.get('/update', passport.authenticate('jwt', { session: false}),
             });
         });
 });
-instructorRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
+instructorRouter.get('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     Instructor.findByIdAndRemove(req.params.id)
         .then(instructor => {
