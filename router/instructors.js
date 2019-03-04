@@ -84,7 +84,7 @@ instructorRouter.post('/update', /*passport.authenticate('jwt', { session: false
             offDay : req.body.offDay,
             leaveDays: req.body.leaveDays,
     };
-    Instructor.findByIdAndUpdate(instructorId, query, {new:true})
+    Instructor.findByIdAndUpdate(id, query, {new:true})
         .then(instructor => {
             res.json({
                 success: true,
@@ -100,7 +100,7 @@ instructorRouter.post('/update', /*passport.authenticate('jwt', { session: false
             });
         });
 });
-instructorRouter.get('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+instructorRouter.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     Instructor.findByIdAndRemove(req.params.id)
         .then(instructor => {

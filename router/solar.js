@@ -95,7 +95,7 @@ solarRoute.get('/get', passport.authenticate('jwt', { session: false}), (req, re
             expenses: req.body.expenses
                  
         };
-    Solar.findByIdAndUpdate(solarId, query, {new:true})
+    Solar.findByIdAndUpdate(id, query, {new:true})
             .then(solar => {
                 res.json({
                     success: true,

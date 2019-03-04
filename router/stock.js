@@ -91,7 +91,7 @@ stockRoute.post('/update', /*passport.authenticate('jwt', { session: false}),*/ 
     personInCharge: req.body.personInCharge,
     logistics: req.body.logistics
    };
-Stock.findByIdAndUpdate(stockId, query, {new:true})
+Stock.findByIdAndUpdate(id, query, {new:true})
         .then(stock => {
             res.json({
                 success: true,

@@ -84,7 +84,7 @@ technicianRoute.post('/update', /*passport.authenticate('jwt', { session: false}
     specialFaultCleared: req.body.specialFaultCleared,
     techNewsPostedOnWebsite: req.body.techNewsPostedOnWebsite
    };
-Technician.findByIdAndUpdate(technicianId, query, {new:true})
+Technician.findByIdAndUpdate(id, query, {new:true})
         .then(technician => {
             res.json({
                 success: true,

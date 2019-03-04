@@ -88,7 +88,7 @@ websocialRouter.post('/update', /*passport.authenticate('jwt', { session: false}
             twitterFollowers : req.body.twitterFollowers,
             twitterPost: req.body.twitterPost
     }
-    WebSocial.findByIdAndUpdate(websocialId, query, {new:true})
+    WebSocial.findByIdAndUpdate(id, query, {new:true})
         .then(websocial => {
             res.json({
                 success: true,
@@ -104,7 +104,7 @@ websocialRouter.post('/update', /*passport.authenticate('jwt', { session: false}
             });
         });
 });
-websocialRouter.get('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+websocialRouter.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     WebSocial.findByIdAndRemove(req.params.id)
         .then(websocial => {

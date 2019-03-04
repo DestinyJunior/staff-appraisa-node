@@ -94,7 +94,7 @@ salesRouter.post('/update', /*passport.authenticate('jwt', { session: false}),*/
             expenses: req.body.expenses
     };
 
-    Sales.findByIdAndUpdate(salesId, query, {new:true})
+    Sales.findByIdAndUpdate(id, query, {new:true})
         .then(state => {
             res.json({
                 success: true,
@@ -110,7 +110,7 @@ salesRouter.post('/update', /*passport.authenticate('jwt', { session: false}),*/
             });
         });
 });
-salesRouter.get('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+salesRouter.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     Sales.findByIdAndRemove(req.params.id)
         .then(sales => {

@@ -107,7 +107,7 @@ AuditRouter.post('/update', /*passport.authenticate('jwt', { session: false})*/ 
             });
         });
 });
-AuditRouter.get('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/  (req, res) => {
+AuditRouter.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/  (req, res) => {
     
     Audit.findByIdAndRemove(req.params.id)
         .then(audit => {

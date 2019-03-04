@@ -90,7 +90,7 @@ cashierRoute.post('/update', /*passport.authenticate('jwt', { session: false}),*
                 stockCollectionExpenses: req.body.stockCollectionExpenses
          };   
 
-    Cashier.findByIdAndUpdate(cashierId, query, {new:true})
+    Cashier.findByIdAndUpdate(id, query, {new:true})
             .then(cashier => {
                 res.json({
                     success: true,
@@ -101,7 +101,7 @@ cashierRoute.post('/update', /*passport.authenticate('jwt', { session: false}),*
             .catch(err => {
                 res.json({
                     success: false,
-                    message: 'Solar record not found',
+                    message: 'Cashier record not found',
                     solar: ''
                 });
             });

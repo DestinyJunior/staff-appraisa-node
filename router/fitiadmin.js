@@ -93,7 +93,7 @@ fitiadminRouter.post('/update', /*passport.authenticate('jwt', { session: false}
     absentTrainees: req.body.absentTrainees,
     expenses: req.body.expenses
    };
-    FitiAdmin.findByIdAndUpdate(fitiadminId, query, {new:true})
+    FitiAdmin.findByIdAndUpdate(id, query, {new:true})
         .then(fitiadmin => {
             res.json({
                 success: true,
@@ -109,7 +109,7 @@ fitiadminRouter.post('/update', /*passport.authenticate('jwt', { session: false}
             });
         });
 });
-fitiadminRouter.get('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+fitiadminRouter.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     FitiAdmin.findByIdAndRemove(req.params.id)
         .then(fitiadmin => {

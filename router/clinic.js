@@ -96,7 +96,7 @@ clinicRoute.post('/update',/* passport.authenticate('jwt', { session: false}),*/
         numberOfTransaction: req.body.numberOfTransaction,
         numberOfStaff: req.body.numberOfStaff
         };
-clinic.findByIdAndUpdate(clinicId, query, {new:true})
+clinic.findByIdAndUpdate(id, query, {new:true})
         .then(clinic => {
             res.json({
                 success: true,

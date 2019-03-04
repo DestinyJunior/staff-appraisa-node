@@ -83,7 +83,7 @@ MailmonitoringRouter.post('/update', /*passport.authenticate('jwt', { session: f
             customerWaitingtime: req.body.customerWaitingtime
     };
 
-    Mailmonitoring.findByIdAndUpdate(mailmonitoringId, query, {new:true})
+    Mailmonitoring.findByIdAndUpdate(id, query, {new:true})
         .then(mailmonitoring => {
             res.json({
                 success: true,
@@ -99,7 +99,7 @@ MailmonitoringRouter.post('/update', /*passport.authenticate('jwt', { session: f
             });
         });
 });
-MailmonitoringRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
+MailmonitoringRouter.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
     Mailmonitoring.findByIdAndRemove(req.params.id)
         .then(mailmonitoring => {

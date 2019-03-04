@@ -87,7 +87,7 @@ DeliveryManRouter.post('/update', /*passport.authenticate('jwt', { session: fals
             offDay: req.body.offDay,
             leaveDay: req.body.leaveDay,
         };
-    DeliveryMan.findByIdAndUpdate(deliveryId, query, {new:true})
+    DeliveryMan.findByIdAndUpdate(id, query, {new:true})
         .then(deliveryman => {
             res.json({
                 success: true,
@@ -103,7 +103,7 @@ DeliveryManRouter.post('/update', /*passport.authenticate('jwt', { session: fals
             });
         });
 });
-DeliveryManRouter.get('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+DeliveryManRouter.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     DeliveryMan.findByIdAndRemove(req.params.id)
         .then(deliveryman => {

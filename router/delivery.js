@@ -95,7 +95,7 @@ deliveryRoute.post('/update', /*passport.authenticate('jwt', { session: false}),
         expenses: req.body.expenses
  
     };
-Delivery.findByIdAndUpdate(deliveryId, query, {new:true})
+Delivery.findByIdAndUpdate(id, query, {new:true})
         .then(delivery => {
             res.json({
                 success: true,
