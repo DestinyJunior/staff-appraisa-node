@@ -31,8 +31,8 @@ mongoose.connect(config.database);
 //Bring in passport strategy we just defined
 require('./config/passport')(passport);
 
-var helloRouter = require('./router/hello');
-app.use('/api/hello/', helloRouter);
+//var helloRouter = require('./router/hello');
+//app.use('/api/hello/', helloRouter);
 var userRouter = require('./router/user');
 var solarRouter = require('./router/solar');
 var cashierRouter = require('./router/cashier');
@@ -67,5 +67,9 @@ app.use('/api/audit', auditRouter);
 app.use('/api/fitiadmin', fitiadminRouter);
 
 
+//Home route
+app.get('/', (req, res) => {
+  res.send('Relax, we will put the home page here later');
+});
 
 app.listen(3000 , () => console.log('Listening on Port 3000....'));
