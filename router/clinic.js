@@ -43,7 +43,7 @@ clinicRoute.post('/register', /*passport.authenticate('jwt', { session: false}),
     });
 });
 
-clinicRoute.get('/', passport.authenticate('jwt', { session: false}), (req, res) =>  {
+clinicRoute.get('/get', passport.authenticate('jwt', { session: false}), (req, res) =>  {
     clinic.find()
     .then(clinic => {
         res.json({
@@ -61,11 +61,42 @@ clinicRoute.get('/', passport.authenticate('jwt', { session: false}), (req, res)
     });
 });
 
-clinicRoute.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
-    const query = req.query;
-    const clinicId = query.id;
-    delete query.id;
-clinic.findByIdAndUpdate(clinicId, query, {new:true})
+clinicRoute.get('/fetch/:userId',/* passport.authenticate('jwt', { session: false}),*/ (req, res) =>  {
+    var userId = req.params.userId;
+    clinic.find({'userId' : userId})
+    .then(clinic => {
+        res.json({
+            success: true,
+            message: 'clinic records  found',
+            clinic: clinic
+        });
+    })
+    .catch(err => {
+        res.json({
+            success: false,
+            message: 'clinic records not found',
+            clinic: ''
+        });
+    });
+});
+
+clinicRoute.post('/update',/* passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+     id = req.body._id;
+        query = {    
+        userId: req.body.userId,
+        date: req.body.date,
+        totalSales: req.body.totalSales,
+        refund: req.body.refund,
+        shortage: req.body.shortage,
+        debtFromCustomers: req.body.debtFromCustomers,
+        unresolvedReconciliation: req.body.unresolvedReconciliation,
+        abandonedJob: req.body.abandonedJob,
+        successfulTransactions: req.body.successfulTransactions,
+        workInProgress: req.body.workInProgress,
+        numberOfTransaction: req.body.numberOfTransaction,
+        numberOfStaff: req.body.numberOfStaff
+        };
+clinic.findByIdAndUpdate(id, query, {new:true})
         .then(clinic => {
             res.json({
                 success: true,
@@ -82,7 +113,7 @@ clinic.findByIdAndUpdate(clinicId, query, {new:true})
         });
 });
 
-clinicRoute.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
+clinicRoute.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
   clinic.findByIdAndRemove(req.params.id)
         .then(clinic => {

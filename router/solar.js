@@ -42,7 +42,7 @@ solarRoute.post('/register',/* passport.authenticate('jwt', { session: false}),*
         });
 });
 
-solarRoute.get('/', passport.authenticate('jwt', { session: false}), (req, res) =>  {
+solarRoute.get('/get', passport.authenticate('jwt', { session: false}), (req, res) =>  {
             Solar.find()
             .then(solar => {
                 res.json({
@@ -60,11 +60,42 @@ solarRoute.get('/', passport.authenticate('jwt', { session: false}), (req, res) 
             });
     });
 
-    solarRoute.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
-        const query = req.query;
-        const solarId = query.id;
-        delete query.id;
-    Solar.findByIdAndUpdate(solarId, query, {new:true})
+    solarRoute.get('/fetch/:userId', /*passport.authenticate('jwt', { session: false}),*/ (req, res) =>  {
+        var userId = req.params.userId;
+        Solar.find({'userId' : userId})
+        .then(solar => {
+            res.json({
+                success: true,
+                message: 'Solar records  found',
+                solar: solar
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'Solar records not found',
+                solar: ''
+            });
+        });
+});
+
+    solarRoute.post('/update', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+        id = req.body._id;
+
+        query = {
+            userId: req.body.userId,//req.param._id,
+            date: req.body.date,
+            newInstallation: req.body.newInstallation,
+            totalSalesFromNewInstallation: req.body.totalSalesFromNewInstallation,
+            routineMaintenance: req.body.routineMaintenance,
+            salesFromRoutineMaintenance: req.body.salesFromRoutineMaintenance,
+            salesFromRepairWork: req.body.salesFromRepairWork,
+            debtFromCustomers : req.body.debtFromCustomers,
+            numberOfStaff: req.body.numberOfStaff,
+            expenses: req.body.expenses
+                 
+        };
+    Solar.findByIdAndUpdate(id, query, {new:true})
             .then(solar => {
                 res.json({
                     success: true,
@@ -81,7 +112,7 @@ solarRoute.get('/', passport.authenticate('jwt', { session: false}), (req, res) 
             });
     });
 
-    solarRoute.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
+    solarRoute.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
         Solar.findByIdAndRemove(req.params.id)
             .then(solar => {

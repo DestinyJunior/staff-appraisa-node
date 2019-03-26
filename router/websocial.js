@@ -55,12 +55,40 @@ websocialRouter.get('/get', passport.authenticate('jwt', { session: false}), (re
             });
         });
 });
-websocialRouter.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
-    const query = req.query;
-    const websocialId = query.id;
-    delete query.id;
 
-    WebSocial.findByIdAndUpdate(websocialId, query, {new:true})
+websocialRouter.get('/fetch/:userId',/* passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+    var userId = req.params.userId;
+    WebSocial.find({'userId' : userId})
+        .then(websocial => {
+            res.json({
+                success: true,
+                message: 'websocial found',
+                websocial: websocial
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'websocial not found',
+                websocial: ''
+            });
+        });
+});
+
+websocialRouter.post('/update', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+    id = req.body._id;
+
+    query = {
+        userId: req.body.userId,
+            date: req.body.date,
+            facebookLikes: req.body.facebookLikes,
+            instagramFollowers: req.body.instagramFollowers,
+            postOnFacebook: req.body.postOnFacebook,
+            postOnInstagram: req.body.postOnInstagram,
+            twitterFollowers : req.body.twitterFollowers,
+            twitterPost: req.body.twitterPost
+    }
+    WebSocial.findByIdAndUpdate(id, query, {new:true})
         .then(websocial => {
             res.json({
                 success: true,
@@ -76,7 +104,7 @@ websocialRouter.get('/update', passport.authenticate('jwt', { session: false}), 
             });
         });
 });
-websocialRouter.get('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
+websocialRouter.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     WebSocial.findByIdAndRemove(req.params.id)
         .then(websocial => {

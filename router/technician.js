@@ -36,7 +36,7 @@ technicianRoute.post('/register',/* passport.authenticate('jwt', { session: fals
     });
 });
 
-technicianRoute.get('/', passport.authenticate('jwt', { session: false}), (req, res) =>  {
+technicianRoute.get('/get', passport.authenticate('jwt', { session: false}), (req, res) =>  {
     Technician.find()
     .then(technician => {
         res.json({
@@ -53,12 +53,38 @@ technicianRoute.get('/', passport.authenticate('jwt', { session: false}), (req, 
         });
     });
 });
+technicianRoute.get('/fetch/:userId', /*passport.authenticate('jwt', { session: false}),*/ (req, res) =>  {
+    var userId = req.params.userId;
+    Technician.find({'userId' : userId})
+    .then(technician => {
+        res.json({
+            success: true,
+            message: 'technician records  found',
+            technician: technician
+        });
+    })
+    .catch(err => {
+        res.json({
+            success: false,
+            message: 'technician records not found',
+            technician: ''
+        });
+    });
+});
 
-technicianRoute.get('/update', passport.authenticate('jwt', { session: false}), (req, res) => {
-    const query = req.query;
-    const technicianId = query.id;
-    delete query.id;
-Technician.findByIdAndUpdate(technicianId, query, {new:true})
+technicianRoute.post('/update', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
+   id = req.body._id;
+
+   query = {
+    userId: req.body.userId,
+    date: req.body.date,
+    successfulWorkDone: req.body.successfulWorkDone,
+    revenueFromSuccessfulWork: req.body.revenueFromSuccessfulWork,
+    workInProgress: req.body.workInProgress,
+    specialFaultCleared: req.body.specialFaultCleared,
+    techNewsPostedOnWebsite: req.body.techNewsPostedOnWebsite
+   };
+Technician.findByIdAndUpdate(id, query, {new:true})
         .then(technician => {
             res.json({
                 success: true,
@@ -75,7 +101,7 @@ Technician.findByIdAndUpdate(technicianId, query, {new:true})
         });
 });
 
-technicianRoute.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
+technicianRoute.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
   Technician.findByIdAndRemove(req.params.id)
         .then(technician => {
