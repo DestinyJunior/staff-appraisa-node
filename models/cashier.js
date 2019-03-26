@@ -15,7 +15,7 @@ var CashierSchema = new mongoose.Schema({
     },
     amountOfUnresolvedReconcilation: {
         type: Number,
-        required: true
+        required: false
     },
     cashShortage: {
         type: Number,

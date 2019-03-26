@@ -27,11 +27,11 @@ var InstructorSchema = new mongoose.Schema({
     },
     offDay: {
         type: String,
-        required: true
+        required: false
     },
     leaveDays: {
         type: Number,
-        required: true
+        required: false
     },
    
 });

@@ -27,7 +27,7 @@ var technicianSchema = new mongoose.Schema({
     },
     techNewsPostedOnWebsite: {
         type: String,
-        required: true
+        required: false
     }        
 });
 

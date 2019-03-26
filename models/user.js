@@ -52,7 +52,7 @@ var UserSchema = new mongoose.Schema({
         },
         appointmentDate: {
             type: Date,
-            required: true
+            required: false
         },
         portfolio: {
             type: String,
@@ -60,17 +60,21 @@ var UserSchema = new mongoose.Schema({
         },
         salary: {
             type: String,
-            required: true
+            required: false
         },
         numberOfLeaveUsed: {
             type: Number,
-            required: true
+            required: false
         },
         daysAbsent: {
             type: Number,
             required:  false
         },
         role: {
+            type: String,
+            required: true
+        },
+        branch : {
             type: String,
             required: true
         }       

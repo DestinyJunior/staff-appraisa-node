@@ -19,7 +19,7 @@ var DeliveryManSchema = new mongoose.Schema({
     },
     itemrepaired: {
         type: String,
-        required: true
+        required: false
     },
     costOfItemRepaired: {
         type: Number,
@@ -31,11 +31,11 @@ var DeliveryManSchema = new mongoose.Schema({
     },
     offDay: {
         type: String,
-        required: true
+        required: false
     },
     leaveDay: {
         type: String,
-        required: true
+        required: false
     }
 
 });

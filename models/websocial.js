@@ -27,7 +27,7 @@ var WebSocialSchema = new mongoose.Schema({
     },
     twitterFollowers: {
         type: Number,
-        required: true
+        required: false
     },
     twitterPost: {
         type: Number,

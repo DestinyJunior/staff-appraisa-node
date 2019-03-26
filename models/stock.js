@@ -31,11 +31,11 @@ var StockSchema = new mongoose.Schema({
     },
     personInCharge: {
         type: String,
-        required: true
+        required: false
     },
    logistics: {
         type: String,
-        required: true
+        required: false
     }        
 });
 

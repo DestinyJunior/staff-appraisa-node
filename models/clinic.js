@@ -43,11 +43,11 @@ var ClinicSchema = new mongoose.Schema({
     },
     numberOfTransaction: {
         type: Number,
-        required: true
+        required: false
     },
     numberOfStaff: {
         type: Number,
-        required: true
+        required: false
     }        
 });
 

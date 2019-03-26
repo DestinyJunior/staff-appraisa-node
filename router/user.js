@@ -26,7 +26,8 @@ userRoute.post('/register', (req, res) => {
             salary: req.body.salary,
             numberOfLeaveUsed: req.body.numberOfLeaveUsed,
             daysAbsent: req.body.daysAbsent,
-            role: req.body.role         
+            role: req.body.role,
+            branch: req.body.branch         
         });
         //Attemt to save the new users
         User.create(newUser, (err, user) =>{
@@ -72,7 +73,7 @@ userRoute.get('/dashboard'/*, passport.authenticate('jwt', { session: false})*/,
     res.send('It worked! User id is: ' + req.user._id + '.');
 });
 
-userRoute.get('/get', passport.authenticate('jwt', { session: false}), (req, res) => {
+userRoute.get('/fetch', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     User.find()
         .then(user => {
             res.json({

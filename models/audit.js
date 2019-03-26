@@ -23,23 +23,23 @@ var auditSchema = new mongoose.Schema({
     },
     unresolvedReconciliationAtBranches: {
         type: String,
-        required: true
+        required: false
     },
     statementReconciliationAtBranches: {
         type: String,
-        required: true
+        required: false
     },
     stockTakingAtBranches: {
         type: String,
-        required: true
+        required: false
     },
     POSReconciliationAtBranches: {
         type: String,
-        required: true
+        required: false
     },
     correctionFromCashier: {
         type: String,
-        required: true
+        required: false
     }
 
 });

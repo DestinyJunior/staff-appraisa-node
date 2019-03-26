@@ -43,11 +43,11 @@ var SaleSchema = new mongoose.Schema({
     },
     numberOfStaff: {
         type: Number,
-        required: true
+        required: false
     },
     expenses: {
         type: Number,
-        required: true
+        required: false
     }
     
 });

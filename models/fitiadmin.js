@@ -23,7 +23,7 @@ var FitiAdminSchema = new mongoose.Schema({
     },
     unresolvedReconciliation: {
         type: String,
-        required: true
+        required: false
     },
     dueDebtFromTrainees: {
         type: Number,
