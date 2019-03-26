@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app:
+    container_name: staff-appraisal-app-server
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: node-app
+    tty: true
+    ports:
+      - '80:3000'
+    links:
+      - mongo
+    networks:
+      - app-network
+  mongo:
+    container_name: mongo
+    image: mongo
+    tty: true
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27017:27017'
+    networks:
+    - app-network
+networks:
+  app-network:
+    driver: bridge
