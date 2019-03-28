@@ -11,7 +11,7 @@ var SaleSchema = new mongoose.Schema({
     },
     cashRefund: {
         type: Number,
-        required: false
+        required: true
     },
     singleInvoice: {
         type: String,

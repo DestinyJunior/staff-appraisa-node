@@ -73,7 +73,7 @@ instructorRouter.get('/fetch/:userId', /*passport.authenticate('jwt', { session:
 });
 
 instructorRouter.post('/update', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
-    id = req.body,_id;
+    id = req.body._id;
     query = {
             userId: req.body.userId,
             date: req.body.date,
