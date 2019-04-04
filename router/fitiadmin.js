@@ -29,12 +29,12 @@ fitiadminRouter.post('/register', /*passport.authenticate('jwt', { session: fals
                 console.log(newFitiAdmin)
                 return res.json({
                     success: false, 
-                    message: err
+                    message: "Record Not Created. Record already exist. Check Date"
                 })
             } 
             res.json({
                 success: true, 
-                message: 'Sucessfully Created new fitiadmin.',
+                message: 'Sucessfully Created new Record.',
                 user: FitiAdmin
                 
                 });
@@ -109,6 +109,35 @@ fitiadminRouter.post('/update', /*passport.authenticate('jwt', { session: false}
             });
         });
 });
+
+fitiadminRouter.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    FitiAdmin.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(fitiadmin => {
+            res.json({
+                success: true,
+                message: 'FitiAdmin found',
+                fitiadmin: fitiadmin
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'FitiAdmin not found',
+                fitiadmin: ''
+            });
+        });
+});
+
+
 fitiadminRouter.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     FitiAdmin.findByIdAndRemove(req.params.id)

@@ -24,17 +24,46 @@ instructorRouter.post('/register', /*passport.authenticate('jwt', { session: fal
                 console.log(newInstructor)
                 return res.json({
                     success: false, 
-                    message: err
+                    message: "Record Not Created. Record already exist. Check Date"
                 })
             } 
             res.json({
                 success: true, 
-                message: 'Sucessfully Created new instructor.',
+                message: 'Sucessfully Created new Record.',
                 user: Instructor
                 
                 });
         });
 });
+
+instructorRouter.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    Instructor.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(instructor => {
+            res.json({
+                success: true,
+                message: 'Instructor found',
+                instructor: instructor
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'Instructor not found',
+                instructor: ''
+            });
+        });
+});
+
+
 instructorRouter.get('/get', passport.authenticate('jwt', { session: false}), (req, res) => {
     Instructor.find()
         .then(instructor => {

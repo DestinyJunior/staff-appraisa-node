@@ -30,12 +30,12 @@ deliveryRoute.post('/register', /*passport.authenticate('jwt', { session: false}
         if(err){
             return res.json({
                 success: false,
-                 message: err
+                 message: "Record Not Created. Record already exist. Check Date"
                 })
         } 
         res.json({
             success: true, 
-            message: 'Sucessfully Created new delivery record.', 
+            message: 'Sucessfully Created new Record.', 
             user: delivery,
             
         });
@@ -78,6 +78,34 @@ deliveryRoute.get('/fetch/:userId', /*passport.authenticate('jwt', { session: fa
         });
     });
 });
+
+deliveryRoute.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    Delivery.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(delivery => {
+            res.json({
+                success: true,
+                message: 'Delivery found',
+                delivery: delivery
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'Delivery not found',
+                delivery: ''
+            });
+        });
+});
+
 
 deliveryRoute.post('/update', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     id = req.body._id;

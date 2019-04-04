@@ -25,11 +25,14 @@ technicianRoute.post('/register',/* passport.authenticate('jwt', { session: fals
     Technician.create(newTechnician, (err, technician) =>{
         if(err){
             console.log(newTechnician);
-            return res.json({success: false, message: err})
+            return res.json({
+                success: false, 
+                message: "Record Not Created. Record already exist. Check Date"
+            })
         } 
         res.json({
             success: true, 
-            message: 'Sucessfully Created new technician record.', 
+            message: 'Sucessfully Created new Record.', 
             user: technician,
             
         });
@@ -100,6 +103,34 @@ Technician.findByIdAndUpdate(id, query, {new:true})
             });
         });
 });
+
+technicianRoute.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    Technician.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(technician => {
+            res.json({
+                success: true,
+                message: 'Technician found',
+                technician: technician
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'Technician not found',
+                technician: ''
+            });
+        });
+});
+
 
 technicianRoute.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     

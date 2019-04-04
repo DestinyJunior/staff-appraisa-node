@@ -26,12 +26,12 @@ websocialRouter.post('/register', /*passport.authenticate('jwt', { session: fals
                 console.log(newwebsocial)
                 return res.json({
                     success: false, 
-                    message: err
+                    message: "Record Not Created. Record already exist. Check Date"
                 })
             } 
             res.json({
                 success: true, 
-                message: 'Sucessfully Created new staff.',
+                message: 'Sucessfully Created new Record.',
                  user: websocial
                 
                 });
@@ -104,6 +104,34 @@ websocialRouter.post('/update', /*passport.authenticate('jwt', { session: false}
             });
         });
 });
+
+websocialRouter.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    WebSocial.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(websocial => {
+            res.json({
+                success: true,
+                message: 'WebSocial found',
+                websocial: websocial
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'WebSocial not found',
+                websocial: ''
+            });
+        });
+});
+
 websocialRouter.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     WebSocial.findByIdAndRemove(req.params.id)

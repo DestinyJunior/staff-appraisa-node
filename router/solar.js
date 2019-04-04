@@ -30,12 +30,12 @@ solarRoute.post('/register',/* passport.authenticate('jwt', { session: false}),*
             if(err){
                 return res.json({
                     success: false, 
-                    message: err
+                    message: "Record Not Created. Record already exist. Check Date"
                 })
             } 
             res.json({
                 success: true, 
-                message: 'Sucessfully Created new solar record.', 
+                message: 'Sucessfully Created new Record.', 
                 user: solar,
                
             });
@@ -111,6 +111,34 @@ solarRoute.get('/get', passport.authenticate('jwt', { session: false}), (req, re
                 });
             });
     });
+
+    solarRoute.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+        var startDate = req.params.startDate;
+        var endDate = req.params.endDate;
+        var userId = req.params.userId;
+        Solar.find({
+            date: {
+                $gte: startDate,
+                $lte: endDate
+            },
+            userId: userId
+        })
+        .then(solar => {
+                res.json({
+                    success: true,
+                    message: 'Solar found',
+                    solar: solar
+                });
+            })
+            .catch(err => {
+                res.json({
+                    success: false,
+                    message: 'Solar not found',
+                    solar: ''
+                });
+            });
+    });
+    
 
     solarRoute.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     

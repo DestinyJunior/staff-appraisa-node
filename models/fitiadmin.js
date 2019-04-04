@@ -6,8 +6,9 @@ var FitiAdminSchema = new mongoose.Schema({
         required: true
     },
     date: {
-        type: String,
-        required: true
+        type: Date,
+        required: true,
+        unique : true
     },
     numberOfRegistration: {
         type: Number,

@@ -27,12 +27,12 @@ AuditRouter.post('/register', /*passport.authenticate('jwt', { session: false}),
                 console.log(newAudit)
                 return res.json({
                     success: false, 
-                    message: err
+                    message: "Record Not Created. Record already exist. Check Date"
                 })
             } 
             res.json({
                 success: true, 
-                message: 'Sucessfully Created new Audit.',
+                message: 'Sucessfully Created new Record.',
                  user: audit
                 
                 });
@@ -74,6 +74,34 @@ AuditRouter.get('/fetch/:userId' /*passport.authenticate('jwt', { session: false
             });
         });
 });
+
+AuditRouter.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    Audit.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(audit => {
+            res.json({
+                success: true,
+                message: 'Audit found',
+                audit: audit
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'delivery not found',
+                audit: ''
+            });
+        });
+});
+
 AuditRouter.post('/update', /*passport.authenticate('jwt', { session: false})*/ (req, res) => {
     
         id = req.body._id;

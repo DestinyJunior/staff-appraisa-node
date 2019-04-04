@@ -28,12 +28,12 @@ cashierRoute.post('/register', /*passport.authenticate('jwt', { session: false})
                 console.log(newCashier);
                 return res.json({
                     success: false,
-                     message:err
+                     message: "Record Not Created. Record already exist. Check Date"
                     })
             } 
             res.json({
                 success: true, 
-                message: 'Sucessfully Created new cashier record.', 
+                message: 'Sucessfully Created new Record.', 
                 user: cashier,
                 
             });
@@ -76,6 +76,34 @@ cashierRoute.get('/fetch/:userId', /*passport.authenticate('jwt', { session: fal
         });
     });
 });
+
+cashierRoute.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    Cashier.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(cashier => {
+            res.json({
+                success: true,
+                message: 'Cashier found',
+                cashier: cashier
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'cashier not found',
+                cashier: ''
+            });
+        });
+});
+
 
 cashierRoute.post('/update', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
                 id = req.body._id;

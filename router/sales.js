@@ -28,12 +28,12 @@ salesRouter.post('/register',/* passport.authenticate('jwt', { session: false}),
                 console.log(newSales)
                 return res.json({
                     success: false, 
-                    message: err
+                    message: "Record Not Created. Record already exist. Check Date"
                 })
             } 
             res.json({
                 success: true, 
-                message: 'Sucessfully Created new sales.',
+                message: 'Sucessfully Created new Record.',
                  user: sales
                 
                 });
@@ -110,6 +110,35 @@ salesRouter.post('/update', /*passport.authenticate('jwt', { session: false}),*/
             });
         });
 });
+
+salesRouter.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    Sales.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(sales => {
+            res.json({
+                success: true,
+                message: 'Sales found',
+                sales: sales
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'Sales not found',
+                sales: ''
+            });
+        });
+});
+
+
 salesRouter.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
     Sales.findByIdAndRemove(req.params.id)

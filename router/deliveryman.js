@@ -26,12 +26,12 @@ DeliveryManRouter.post('/register', /*passport.authenticate('jwt', { session: fa
                 console.log(newDeliveryMan)
                 return res.json({
                     success: false, 
-                    message: err
+                    message: "Record Not Created. Record already exist. Check Date"
                 })
             } 
             res.json({
                 success: true, 
-                message: 'Sucessfully Created new deliveryman.',
+                message: 'Sucessfully Created new Record.',
                  user: delivery
                 
                 });
@@ -73,6 +73,34 @@ DeliveryManRouter.get('/fetch/:userId', /*passport.authenticate('jwt', { session
             });
         });
 });
+
+DeliveryManRouter.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    DeliveryMan.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(deliveryman => {
+            res.json({
+                success: true,
+                message: 'DeliveryMan found',
+                deliveryman: deliveryman
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'DeliveryMAn not found',
+                deliveryman: ''
+            });
+        });
+});
+
 
 DeliveryManRouter.post('/update', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
         id = req.body._id;

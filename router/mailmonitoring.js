@@ -23,12 +23,12 @@ MailmonitoringRouter.post('/register', /*passport.authenticate('jwt', { session:
                 console.log(newMailmonitoring)
                 return res.json({
                     success: false, 
-                    message: err
+                    message: "Record Not Created. Record already exist. Check Date"
                 })
             } 
             res.json({
                 success: true, 
-                message: 'Sucessfully Created new mailmonitoring.',
+                message: 'Sucessfully Created new Record.',
                  user: mailmonitoring
                 
                 });
@@ -99,6 +99,35 @@ MailmonitoringRouter.post('/update', /*passport.authenticate('jwt', { session: f
             });
         });
 });
+
+MailmonitoringRouter.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    Mailmonitoring.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(mailmonitoring => {
+            res.json({
+                success: true,
+                message: 'MailMonitoring found',
+                mailmonitoring: mailmonitoring
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'MailMonitoring not found',
+                mailmonitoring: ''
+            });
+        });
+});
+
+
 MailmonitoringRouter.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
     
     Mailmonitoring.findByIdAndRemove(req.params.id)

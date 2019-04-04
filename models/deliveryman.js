@@ -6,8 +6,9 @@ var DeliveryManSchema = new mongoose.Schema({
         required: true
     },
     date: {
-        type: String,
-        required: true
+        type: Date,
+        required: true,
+        unique : true
     },
     itemDelivered: {
         type: String,

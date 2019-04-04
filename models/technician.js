@@ -6,8 +6,9 @@ var technicianSchema = new mongoose.Schema({
         required: true
     },
     date: {
-        type: String,
-        required: true
+        type: Date,
+        required: true,
+        unique : true
     },
     successfulWorkDone: {
         type: Number,

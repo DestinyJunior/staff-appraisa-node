@@ -31,12 +31,12 @@ clinicRoute.post('/register', /*passport.authenticate('jwt', { session: false}),
         if(err){
             return res.json({
                 success: false, 
-                message: err
+                message: "Record Not Created. Record already exist. Check Date"
             })
         } 
         res.json({
             success: true, 
-            message: 'Sucessfully Created new clinic record.', 
+            message: 'Sucessfully Created new Record.', 
             user: clinic,
            
         });
@@ -79,6 +79,34 @@ clinicRoute.get('/fetch/:userId',/* passport.authenticate('jwt', { session: fals
         });
     });
 });
+
+clinicRoute.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    clinic.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(clinic => {
+            res.json({
+                success: true,
+                message: 'Clinic found',
+                clinic: clinic
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'Clinic not found',
+                clinic: ''
+            });
+        });
+});
+
 
 clinicRoute.post('/update',/* passport.authenticate('jwt', { session: false}),*/ (req, res) => {
      id = req.body._id;

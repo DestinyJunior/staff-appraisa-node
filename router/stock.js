@@ -28,12 +28,12 @@ stockRoute.post('/register', /*passport.authenticate('jwt', { session: false}),*
         if(err){
             return res.json({
                 success: false, 
-                message: err
+                message: "Record Not Created. Record already exist. Check Date"
             })
         } 
         res.json({
             success: true, 
-            message: 'Sucessfully Created new stock record.', 
+            message: 'Sucessfully Created new Record.', 
             user: stock,
             
         });
@@ -107,6 +107,34 @@ Stock.findByIdAndUpdate(id, query, {new:true})
             });
         });
 });
+
+stockRoute.get('/fetch-by-date/:startDate/:endDate/:userId' /*passport.authenticate('jwt', { session: false})*/, (req, res) => {
+    var startDate = req.params.startDate;
+    var endDate = req.params.endDate;
+    var userId = req.params.userId;
+    Stock.find({
+        date: {
+            $gte: startDate,
+            $lte: endDate
+        },
+        userId: userId
+    })
+    .then(stock => {
+            res.json({
+                success: true,
+                message: 'Stock found',
+                stock: stock
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                message: 'Stock not found',
+                stock: ''
+            });
+        });
+});
+
 
 stockRoute.delete('/delete/:id', /*passport.authenticate('jwt', { session: false}),*/ (req, res) => {
     
