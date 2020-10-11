@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 
 var app = express();
 
-//Use body-parser to get POST  requests for API Use
+//Use body-parser to parse json body api request
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
